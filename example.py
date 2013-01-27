@@ -12,11 +12,17 @@ def luminance_image(image_name):
     return arr.mean() / 256.
 
 
-def main():
-    imgs = glob.glob("/var/run/media/turra/WDRuggero/d/*.JPG")[:100]
+def main(images):
+    imgs = glob.glob(images)[:100]
     luminances = [luminance_image(img) for img in imgs]
     fig_luminance, ax = plt.subplots()
     ax.plot(luminances)
     plt.show()
 
-main()
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('images', type=str, help='images (use wildcards)')
+    args = parser.parse_args()
+    main(args.images)
